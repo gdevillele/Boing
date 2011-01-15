@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
 						acceleration.x = 0;
 						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_add_solid( position, speed, acceleration, 7, (double) 5, 0 );
+						physicEngine_add_solid( position, speed, acceleration, 7, (double) 5, 1 );
 					}
 					break;
 					

@@ -76,12 +76,11 @@ void physicEngine_removeUselessSolids()
 	int i;
 	for ( i=0 ; i<sizeTabSolids ; i++ )
 	{
-		if( tabSolids[i]->position.x < x_min || tabSolids[i]->position.x > x_max || tabSolids[i]->position.y < y_min || tabSolids[i]->position.y > y_max )
+		if( tabSolids[i]->position.x < (x_min-tabSolids[i]->radius) || tabSolids[i]->position.x > (x_max+tabSolids[i]->radius) || tabSolids[i]->position.y < (y_min-tabSolids[i]->radius) || tabSolids[i]->position.y > (y_max+tabSolids[i]->radius) )
 		{
 			// Supprimer le solid du tableau de solids
 			physicEngine_removeSolid(i);
-			printf("%i\n", sizeTabSolids);
-
+			//printf("%i\n", sizeTabSolids);
 		}
 	}
 }
