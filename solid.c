@@ -40,6 +40,17 @@ void solid_display(Solid *solid)	// Génération des points (sommets) des solids
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//	MISE À JOUR DE LA PROCHAINE POSITION (pour la détection de collision)
+//////////////////////////////////////////////////////////////////////////////////////////
+void solid_updateNextPosition( Solid *solid, int gap )
+{	
+	solid->nextPosition.x = solid->position.x + (( solid->speed.x * gap )/1000) ;
+	solid->nextPosition.y = solid->position.y + (( solid->speed.y * gap )/1000) ;
+	//solid->position.z = solid->position.z + solid->speed.z ;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //	MISE À JOUR DE LA POSITION D'UN SOLID
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -68,15 +79,7 @@ void solid_updateSpeed( Solid *solid, int gap )
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//	MISE À JOUR DE LA PROCHAINE POSITION (pour la détection de collision)
-//////////////////////////////////////////////////////////////////////////////////////////
-void solid_updateNextPosition( Solid *solid, int gap )
-{	
-	solid->nextPosition.x = solid->position.x + (( solid->speed.x * gap )/1000) ;
-	solid->nextPosition.y = solid->position.y + (( solid->speed.y * gap )/1000) ;
-	//solid->position.z = solid->position.z + solid->speed.z ;
-}
+
 
 
 

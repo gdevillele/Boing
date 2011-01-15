@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	///	Fonctions
 	//-----------------------------------------
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_WM_SetCaption("Physique Engine :D",NULL);
+    SDL_WM_SetCaption("Boing - Physic Engine",NULL);
     SDL_SetVideoMode(1024, 768, 32, SDL_OPENGL);
 	
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -38,7 +38,8 @@ int main(int argc, char *argv[])
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(-512,512,-384,384);
-	
+	physicEngine_setWindowSize( -512, 512, -384, 384 );
+
 	
 	//	MAIN LOOP
     while (continuer)
@@ -87,6 +88,10 @@ int main(int argc, char *argv[])
 						acceleration.z = 0;
 						physicEngine_add_solid( position, speed, acceleration, 3, (double) 100, 1 );
 					}
+					else if ( event.button.button == SDL_BUTTON_RIGHT )
+					{
+						//physicEngine_removeSolid(3);
+					}
 					break;
 				case SDL_MOUSEMOTION:
 					if(1)
@@ -125,6 +130,7 @@ int main(int argc, char *argv[])
 		physicEngine_computeNextPositions( gap );
 		
 		// --- 2 --- : Žlimination des solids hors champ
+		physicEngine_removeUselessSolids();
 		
 		// --- 3 --- : detection des collision
 		

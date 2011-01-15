@@ -8,27 +8,53 @@
 ///
 //////////////////////////////////////////////////////////
 
+
 #include "physicEngine.h"
 
 
+//-------------------------------------------------------
+//	VARIABLES
+//-------------------------------------------------------
+
+	// Tableau des Solids
+	//--------------------
+	int		sizeTabSolids	= 0;
+	Solid*	*tabSolids		= NULL;
+
+	// Window size
+	int		x_min;
+	int		x_max;
+	int		y_min;
+	int		y_max;
 
 
 
-//////////////////////////////////////////////////////////
-//	VARIABLES du moteur physique
-//////////////////////////////////////////////////////////
-
-// Tableau des Solids
-//--------------------
-int			sizeTabSolids	= 0;
-Solid*		*tabSolids		= NULL;
 
 
 
+//-------------------------------------------------------
+//	FONCTIONS
+//-------------------------------------------------------
 
-//////////////////////////////////////////////////////////
-//	FONCTIONS du moteur physique
-//////////////////////////////////////////////////////////
+
+// Définition des dimensions de la fenetre
+void physicEngine_setWindowSize( int win_x_min, int win_x_max, int win_y_min, int win_y_max )
+{
+	x_min = win_x_min;
+	x_max = win_x_max;
+	y_min = win_y_min;
+	y_max = win_y_max;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 // 1 - Calcul des nouvelles positions
@@ -44,10 +70,26 @@ void physicEngine_computeNextPositions( int gap )
 	}
 }
 
+// 2 - Elimination des solids hors champ
+void physicEngine_removeUselessSolids()
+{
+	int i;
+	for ( i=0 ; i<sizeTabSolids ; i++ )
+	{
+		if( tabSolids[i]->position.x < x_min || tabSolids[i]->position.x > x_max || tabSolids[i]->position.y < y_min || tabSolids[i]->position.y > y_max )
+		{
+			// Supprimer le solid du tableau de solids
+			physicEngine_removeSolid(i);
+			printf("%i\n", sizeTabSolids);
+
+		}
+	}
+}
+
 // 4 - Mise à jour de l'état des solides
 void physicEngine_updateSolidsState( int gap )
 {
-	int i = 0;
+	int i;
 	for ( i=0 ; i<sizeTabSolids ; i++ )
 	{
 		if( tabSolids[i]->staticSolid == 0 )
@@ -61,7 +103,7 @@ void physicEngine_updateSolidsState( int gap )
 // 5 - Affichage de tous les solids contenus dans le tableau
 void physicEngine_display()
 {
-	int i = 0;
+	int i;
 	
 	// On dessine tous les solids 
 	for ( i=0 ; i<sizeTabSolids ; i++ )
@@ -74,6 +116,19 @@ void physicEngine_display()
 
 
 
+// Supprimer un solid
+//-------------------------------------------
+void physicEngine_removeSolid(int index)
+{
+	int i;
+	
+	sizeTabSolids--;
+	for ( i=index ; i < sizeTabSolids ; i++ )
+	{
+		tabSolids[i] = tabSolids[i+1];
+	}
+	tabSolids = realloc( tabSolids, sizeTabSolids * sizeof(Solid*) );
+}
 
 
 
@@ -110,8 +165,6 @@ void physicEngine_add_solid( Vector position, Vector speed, Vector acceleration,
 
 
 
-
-
 // Libération de la mémoire
 //-----------------------------------
 void physicEngine_free()
@@ -138,10 +191,6 @@ void physicEngine_free()
 // PRESSE PAPIER
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Nouvelles positions
-/*
- */
 
 
 

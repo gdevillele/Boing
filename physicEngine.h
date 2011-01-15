@@ -18,10 +18,14 @@
 #include "vector.h"
 #include "solid.h"
 
-
+// Indication de la taille de la fenetre
+void physicEngine_setWindowSize( int win_x_min, int win_x_max, int win_y_min, int win_y_max );
 
 // 1 - Calcul des nouvelles positions
 void physicEngine_computeNextPositions( int gap );
+
+// 2 - 
+void physicEngine_removeUselessSolids();
 
 // 4 - Mise à jour de l'état des solides
 void physicEngine_updateSolidsState( int gap );
@@ -32,6 +36,9 @@ void physicEngine_display();
 
 // Ajouter un solid au moteur
 void physicEngine_add_solid( Vector position, Vector speed, Vector acceleration, int nb_of_faces, double radius, int staticSolid );
+
+// Supprimer un solid
+void physicEngine_removeSolid(int index);
 
 // Libération de la mémoire
 void physicEngine_free();

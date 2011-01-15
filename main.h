@@ -32,6 +32,7 @@
 ///////////////////////////////////////
 #include "vector.h"
 #include "solid.h"
+#include "physicEngine.h"
 
 
 
