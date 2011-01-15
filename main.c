@@ -1,65 +1,194 @@
+/////////////////////////////////////////////////////////////
+///
+///		@name	: main.c
+///		@author : Yann & Ga‘tan
+///		@date	: 9/11/2010
+///
+/////////////////////////////////////////////////////////////
 
-/* Simple program:  Create a blank window, wait for keypress, quit.
 
-   Please see the SDL documentation for details on using the SDL API:
-   /Developer/Documentation/SDL/docs.html
-*/
-   
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include "main.h"
 
-#include "SDL.h"
+
 
 int main(int argc, char *argv[])
 {
-	Uint32 initflags = SDL_INIT_VIDEO;  /* See documentation for details */
-	SDL_Surface *screen;
-	Uint8  video_bpp = 0;
-	Uint32 videoflags = SDL_SWSURFACE;
-	int    done;
-        SDL_Event event;
-
-	/* Initialize the SDL library */
-	if ( SDL_Init(initflags) < 0 ) {
-		fprintf(stderr, "Couldn't initialize SDL: %s\n",
-			SDL_GetError());
-		exit(1);
-	}
-
-	/* Set 640x480 video mode */
-	screen=SDL_SetVideoMode(640,480, video_bpp, videoflags);
-        if (screen == NULL) {
-		fprintf(stderr, "Couldn't set 640x480x%d video mode: %s\n",
-                        video_bpp, SDL_GetError());
-		SDL_Quit();
-		exit(2);
-	}
-
-	done = 0;
-	while ( !done ) {
-
-		/* Check for events */
-		while ( SDL_PollEvent(&event) ) {
-			switch (event.type) {
-
-				case SDL_MOUSEMOTION:
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					break;
-				case SDL_KEYDOWN:
-					/* Any keypress quits the app... */
+	//	Variables
+	//-----------------------------------------
+	SDL_Event	event;
+	int			continuer		= 1;
+	
+	int			gap				= 0;
+	//int			fps				= 60;
+	Uint32		actualTime		= 0;
+	
+	
+	
+	
+	
+	
+	///	Fonctions
+	//-----------------------------------------
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_WM_SetCaption("Physique Engine :D",NULL);
+    SDL_SetVideoMode(1024, 768, 32, SDL_OPENGL);
+	
+	glClear(GL_COLOR_BUFFER_BIT);
+	glViewport ( 0, 0, 1024, 768);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-512,512,-384,384);
+	
+	
+	//	MAIN LOOP
+    while (continuer)
+    {
+		/*
+		 Vector position;
+		 position.x = ( ((rand()%1024)-512) );
+		 position.y = ( 384 );
+		 position.z = 0;
+		 Vector speed;
+		 speed.x = (rand()%300)-150;
+		 speed.y = 0;
+		 speed.z = 0;
+		 Vector acceleration;
+		 acceleration.x = 0;
+		 acceleration.y = -200;
+		 acceleration.z = 0;
+		 physicEngine_add_solid( position, speed, acceleration, 7, (double) 5 );
+		 */
+		
+		//	Gestion des Events
+		//----------------------------------------
+		while(SDL_PollEvent(&event))
+		{
+			switch(event.type)
+			{
 				case SDL_QUIT:
-					done = 1;
+					continuer = 0;
 					break;
-				default:
+					
+				case SDL_MOUSEBUTTONUP:
+					if( event.button.button == SDL_BUTTON_LEFT )
+					{
+						
+						Vector position;
+						position.x = ( event.button.x - 512 );
+						position.y = -( event.button.y - 384 );
+						position.z = 0;
+						Vector speed;
+						speed.x = 150;
+						speed.y = 500;
+						speed.z = 0;
+						Vector acceleration;
+						acceleration.x = 0;
+						acceleration.y = -1000;
+						acceleration.z = 0;
+						physicEngine_add_solid( position, speed, acceleration, 3, (double) 100, 1 );
+					}
+					break;
+				case SDL_MOUSEMOTION:
+					if(1)
+					{
+						Vector position;
+						position.x = ( event.motion.x - 512 );
+						position.y = -( event.motion.y - 384 );
+						position.z = 0;
+						Vector speed;
+						speed.x = (rand()%300)-150;
+						speed.y = (rand()%300)-150;
+						speed.z = 0;
+						Vector acceleration;
+						acceleration.x = 0;
+						acceleration.y = -500;
+						acceleration.z = 0;
+						physicEngine_add_solid( position, speed, acceleration, 7, (double) 5, 0 );
+					}
+					break;
+					
+				default :
 					break;
 			}
 		}
-	}
+		
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		///	Moteur physique + controle du framerate
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		gap = ( SDL_GetTicks() - actualTime );
+		
+		// Moteur Physique
+		//--------------------------------------------------------------------------
+		// --- 1 --- : calcul des nouvelles positions
+		physicEngine_computeNextPositions( gap );
+		
+		// --- 2 --- : Žlimination des solids hors champ
+		
+		// --- 3 --- : detection des collision
+		
+		// --- 4 --- : calcul d'une rŽponse aux collisions
+		
+		// --- 5 --- : mise ˆ jour de l'Žtat des solides
+		physicEngine_updateSolidsState( gap );
+		
+		// --- 6 --- : affichage des solids
+		// On efface la scene avant de redessiner
+		glClear(GL_COLOR_BUFFER_BIT);
+		// On demande au moteur d'afficher les solids
+		physicEngine_display();
+		//--------------------------------------------------------------------------
+		
+		
+		// On met a jour la variable actualTime.
+		actualTime = SDL_GetTicks();
+		SDL_Delay(5);
+		glFlush();
+		SDL_GL_SwapBuffers();
+		
+    } // fin de la boucle principale
 	
-	/* Clean up the SDL library */
-	SDL_Quit();
-	return(0);
-}
+	
+	
+	
+	//-------------------------------------
+	// DŽsallocation du tableau de solids
+	//-------------------------------------
+	physicEngine_free();
+	
+    SDL_Quit();
+	
+    return 0;
+} // --------------------- FIN DU MAIN --------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
