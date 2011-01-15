@@ -73,29 +73,41 @@ int main(int argc, char *argv[])
 				case SDL_MOUSEBUTTONUP:
 					if( event.button.button == SDL_BUTTON_LEFT )
 					{
-						
 						Vector position;
 						position.x = ( event.button.x - 512 );
 						position.y = -( event.button.y - 384 );
 						position.z = 0;
 						Vector speed;
-						speed.x = 150;
-						speed.y = 500;
+						speed.x = 0;
+						speed.y = 0;
 						speed.z = 0;
 						Vector acceleration;
 						acceleration.x = 0;
-						acceleration.y = -1000;
+						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_add_solid( position, speed, acceleration, 3, (double) 100, 1 );
+						physicEngine_add_solid( position, speed, acceleration, 4, (double) 50, 0 );
 					}
 					else if ( event.button.button == SDL_BUTTON_RIGHT )
 					{
-						//physicEngine_removeSolid(3);
+						Vector position;
+						position.x = ( event.button.x - 512 );
+						position.y = -( event.button.y - 384 );
+						position.z = 0;
+						Vector speed;
+						speed.x = 0;
+						speed.y = 0;
+						speed.z = 0;
+						Vector acceleration;
+						acceleration.x = 0;
+						acceleration.y = 0;
+						acceleration.z = 0;
+						physicEngine_add_solid( position, speed, acceleration, 4, (double) 100, 1 );
 					}
 					break;
 				case SDL_MOUSEMOTION:
 					if(1)
 					{
+						/*
 						Vector position;
 						position.x = ( event.motion.x - 512 );
 						position.y = -( event.motion.y - 384 );
@@ -108,7 +120,7 @@ int main(int argc, char *argv[])
 						acceleration.x = 0;
 						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_add_solid( position, speed, acceleration, 7, (double) 5, 1 );
+						physicEngine_add_solid( position, speed, acceleration, 7, (double) 5, 1 );*/
 					}
 					break;
 					
@@ -133,6 +145,7 @@ int main(int argc, char *argv[])
 		physicEngine_removeUselessSolids();
 		
 		// --- 3 --- : detection des collision
+		//physicEngine_detectCollisions();
 		
 		// --- 4 --- : calcul d'une réponse aux collisions
 		

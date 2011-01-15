@@ -76,7 +76,10 @@ void physicEngine_removeUselessSolids()
 	int i;
 	for ( i=0 ; i<sizeTabSolids ; i++ )
 	{
-		if( tabSolids[i]->position.x < (x_min-tabSolids[i]->radius) || tabSolids[i]->position.x > (x_max+tabSolids[i]->radius) || tabSolids[i]->position.y < (y_min-tabSolids[i]->radius) || tabSolids[i]->position.y > (y_max+tabSolids[i]->radius) )
+		if( tabSolids[i]->position.x < (x_min-tabSolids[i]->radius) ||
+		    tabSolids[i]->position.x > (x_max+tabSolids[i]->radius) ||
+		    tabSolids[i]->position.y < (y_min-tabSolids[i]->radius) ||
+		    tabSolids[i]->position.y > (y_max+tabSolids[i]->radius) )
 		{
 			// Supprimer le solid du tableau de solids
 			physicEngine_removeSolid(i);
@@ -84,6 +87,18 @@ void physicEngine_removeUselessSolids()
 		}
 	}
 }
+
+
+// 3 - Detection des collisions
+void physicEngine_detectCollisions()
+{
+	int i;
+	for ( i=0 ; i<sizeTabSolids ; i++ )
+	{
+		
+	}
+}
+
 
 // 4 - Mise à jour de l'état des solides
 void physicEngine_updateSolidsState( int gap )

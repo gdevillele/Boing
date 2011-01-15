@@ -27,8 +27,8 @@ void solid_display(Solid *solid)	// Génération des points (sommets) des solids
 	float	da	= ( ( PI*2.00 ) / solid->nb_vertices );
 	
 	// Algo
-	//glBegin(GL_LINE_LOOP);
-	glBegin(GL_POLYGON);
+	glBegin(GL_LINE_LOOP);
+	//glBegin(GL_POLYGON);
 	glColor3ub( solid->color[0], solid->color[1], solid->color[2] );
 	for( i = 0; i < solid->nb_vertices; i ++ )
 	{
@@ -59,13 +59,6 @@ void solid_updatePosition( Solid *solid, int gap )
 	solid->position.x = solid->position.x + (( solid->speed.x * gap )/1000) ;
 	solid->position.y = solid->position.y + (( solid->speed.y * gap )/1000) ;
 	//solid->position.z = solid->position.z + solid->speed.z ;
-	
-	
-	//if ( solid->position.y < -384+50 )
-	//{
-	//	solid->position.y = -384+50;
-	//	solid->speed.y = (-1)*(solid->speed.y);
-	//}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

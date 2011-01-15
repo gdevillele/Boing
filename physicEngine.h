@@ -24,8 +24,12 @@ void physicEngine_setWindowSize( int win_x_min, int win_x_max, int win_y_min, in
 // 1 - Calcul des nouvelles positions
 void physicEngine_computeNextPositions( int gap );
 
-// 2 - 
+// 2 - Elimination des solids hors champ
 void physicEngine_removeUselessSolids();
+
+// 3 - Detection des collisions
+void physicEngine_detectCollisions();
+
 
 // 4 - Mise à jour de l'état des solides
 void physicEngine_updateSolidsState( int gap );
