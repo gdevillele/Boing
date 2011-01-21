@@ -42,6 +42,22 @@ int main(int argc, char *argv[])
 	physicEngine_setWindowSize( -512, 512, -384, 384 );
 
 	
+	// Génération de la map
+	Vector position;
+	position.x = ( - 0 );
+	position.y = (- 370);
+	position.z = 0;
+	Vector speed;
+	speed.x = 0;
+	speed.y = 0;
+	speed.z = 0;
+	Vector acceleration;
+	acceleration.x = 0;
+	acceleration.y = 0;
+	acceleration.z = 0;
+	physicEngine_create_rect( position, speed, acceleration, (float) 1024, (float) 28, 1 );
+	
+	
 	//	MAIN LOOP
     while (continuer)
     {
@@ -106,7 +122,7 @@ int main(int argc, char *argv[])
 						acceleration.x = 0;
 						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_create_rect( position, speed, acceleration, (float) 20, (float) 5, 0 );
+						//physicEngine_create_rect( position, speed, acceleration, (float) 20, (float) 5, 0 );
 						//physicEngine_create_polygon( position, speed, acceleration, 3, (float) 10, 0 );
 
 					}

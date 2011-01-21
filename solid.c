@@ -20,7 +20,8 @@ void solid_display(Solid *solid)	// Génération des points (sommets) des solids
 	// Variables
 	int		i	= 0;
 	
-	glBegin(GL_LINE_LOOP); //glBegin(GL_POLYGON);
+	//glBegin(GL_LINE_LOOP); 
+	glBegin(GL_POLYGON);
 	glColor3ub( solid->color[0], solid->color[1], solid->color[2] );
 	
 	for( i = 0; i < solid->verticesArray.size; i++ )
@@ -30,7 +31,7 @@ void solid_display(Solid *solid)	// Génération des points (sommets) des solids
 	glEnd();
 	
 	
-	draw_circle(solid->position, solid->radius);
+	//draw_circle(solid->position, solid->radius);
 }
 
 
