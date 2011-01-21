@@ -9,8 +9,7 @@
 
 #include "main.h"
 
-<
-<
+
 int main(int argc, char *argv[])
 {
 	//	Variables
@@ -21,10 +20,6 @@ int main(int argc, char *argv[])
 	int			gap				= 0;
 	//int			fps				= 60;
 	Uint32		actualTime		= 0;
-	
-	
-	
-	
 	
 	
 	///	Fonctions
