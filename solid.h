@@ -17,6 +17,7 @@
 #include "OpenGL/gl.h"
 #include "OpenGL/glu.h"
 #include "vector.h"
+#include "draw.h"
 
 
 //--------------------------------------------
@@ -27,11 +28,11 @@ typedef struct Solid
 	// solid color (rgb)
 	int color[3];
 	
-	// Number of Vertices
-	int nb_vertices;
+	// Vertices
+	TabVector verticesArray;
 	
 	// Rayon du cercle circonscrit
-	double radius;
+	float radius;
 	
 	// static solid (as a boolean - 0=nonstatic)
 	int staticSolid;
@@ -53,6 +54,7 @@ typedef struct Solid
 	
 	// ROTATION
 	//-------------------------------
+	// Les angles sont en radians
 	// vecteur moment/rotation
 	// Position en rotation (angle)
 	// float/int angle;
@@ -79,29 +81,5 @@ void	solid_updateNextPosition( Solid *solid, int gap );
 
 
 #endif // SOLID
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//	BROUILLON - OLD
-////////////////////////////////////
-/*
- // Génération des points (sommets) des solids
- 
- int   i = 0;
- float a  = Pi()    / object->nbVertices;
- float da = TwoPi() / object->nbVertices;
- 
- for( i = 0; i < object->nbVertices; i ++)
- {
- a += da;
- 
- object->vertices[i].x = cos(a) * angle;
- object->vertices[i].y = sin(a) * angle;
- }
- */
 
 

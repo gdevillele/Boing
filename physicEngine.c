@@ -12,12 +12,14 @@
 #include "physicEngine.h"
 
 
-//-------------------------------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////////
+//
 //	VARIABLES
-//-------------------------------------------------------
+//
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Tableau des Solids
-	//--------------------
+	//------------------------------------------------------------
 	int		sizeTabSolids	= 0;
 	Solid*	*tabSolids		= NULL;
 
@@ -32,12 +34,15 @@
 
 
 
-//-------------------------------------------------------
-//	FONCTIONS
-//-------------------------------------------------------
-
+///////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	FUNCTIONS
+//
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 // Définition des dimensions de la fenetre
+//------------------------------------------------------------
+
 void physicEngine_setWindowSize( int win_x_min, int win_x_max, int win_y_min, int win_y_max )
 {
 	x_min = win_x_min;
@@ -56,7 +61,9 @@ void physicEngine_setWindowSize( int win_x_min, int win_x_max, int win_y_min, in
 
 
 
-
+//----------------------------------------------------------------------------------------------
+//	PHYSIC ENGINE
+//----------------------------------------------------------------------------------------------
 // 1 - Calcul des nouvelles positions
 void physicEngine_computeNextPositions( int gap )
 {
@@ -93,9 +100,15 @@ void physicEngine_removeUselessSolids()
 void physicEngine_detectCollisions()
 {
 	int i;
+	int j;
+	int k;
 	for ( i=0 ; i<sizeTabSolids ; i++ )
 	{
-		
+		for ( j=(i+1) ; j < sizeTabSolids ; j++)	// ne pas comparer a -> b ET b->a (optimisation)
+		{
+				k = 0;
+				k = physicEngine_detectExternCollision( tabSolids[i], tabSolids[j] );
+		}
 	}
 }
 
@@ -130,8 +143,125 @@ void physicEngine_display()
 
 
 
+
+
+//----------------------------------------------------------------------------------------------
+//	CREATE SOLID - RECTANGLE		( TODO : rotation lors de la creation ? )
+//----------------------------------------------------------------------------------------------
+void physicEngine_create_rect( Vector position, Vector speed, Vector acceleration, float width, float height, int staticSolid )
+{
+	// Constantes
+	const int sides				= 4;
+	
+	// Variables
+	int		i					= 0;
+	float	a					= (float) 0;
+	float	ia					= (float) 0;	
+	float	half_width			= ( width  / (float) 2 );
+	float	half_height			= ( height / (float) 2 );
+	float	rotation			= (float) 0; 
+	
+	// Code
+	Solid *solid				= malloc( sizeof(Solid) * 1);
+	solid->position				= position;
+	solid->speed				= speed;
+	solid->acceleration			= acceleration;
+	solid->staticSolid			= staticSolid;
+	solid->color[0]				= rand()%255;
+	solid->color[1]				= rand()%255;
+	solid->color[2]				= rand()%255;
+	// On conserve le radius pour connaitre le cercle circonscrit
+	solid->radius				= sqrt( (double)( half_width * half_width + half_height * half_height ) );
+	solid->verticesArray		= tabVector_create();
+	
+	ia							= acos( ( half_width / solid->radius ) );
+	a							= ia;
+	// la rotation est en radians ( 2PI = 360° )
+	//float rotation = (float)(rand()%(624))/100;
+
+	for( i = 0 ; i < sides ; i++ ) // Pour i de 0 à 3
+	{
+		// on crée le sommet
+		Vector *pos = malloc( sizeof( Vector ) );
+		pos->x = ( (cos(a + rotation) * solid->radius) );
+		pos->y = ( (sin(a + rotation) * solid->radius) );
+		tabVector_add( &solid->verticesArray, pos );
+				
+		// ensuite on passe à l'angle suivant
+		if( (i%2) == 0)  // si i est pair (0,2)
+		{
+			a += ( M_PI - ( (float) 2 * ia ) );
+		}
+		else
+		{
+			a += ( (float) 2 * ia );
+		}
+	}	
+	
+	sizeTabSolids++;
+	if(sizeTabSolids <= 1)
+		tabSolids = malloc( sizeTabSolids * sizeof(Solid*) );
+	else
+		tabSolids = realloc( tabSolids, sizeTabSolids * sizeof(Solid*) );
+	tabSolids[sizeTabSolids-1] = solid;
+}
+
+
+//----------------------------------------------------------------------------------------------
+//	CREATE SOLID : REGULAR POLYGON
+//----------------------------------------------------------------------------------------------
+void physicEngine_create_polygon( Vector position, Vector speed, Vector acceleration, int sides, float radius, int staticSolid )
+{
+	// Variables
+	//------------------------------------------------------------
+	
+	int		i				= 0;
+	float	a				= (   M_PI / (float) sides );
+	float	da				= ( ( M_PI * 2.00 ) / (float) sides );
+	float	rotation		= (float) 0; 
+	
+	
+	// Code
+	//------------------------------------------------------------
+	
+	Solid *solid				= malloc( sizeof(Solid) * 1);
+	solid->position				= position;
+	solid->speed				= speed;
+	solid->acceleration			= acceleration;
+	solid->staticSolid			= staticSolid;
+	solid->color[0]				= rand()%255;
+	solid->color[1]				= rand()%255;
+	solid->color[2]				= rand()%255;
+	solid->radius				= radius;
+	solid->verticesArray		= tabVector_create();
+	
+	// la rotation est en radians ( 2PI = 360° )
+	rotation = (float)(rand()%(624))/100;
+	
+	
+	for( i = 0 ; i < sides ; i++ ) // Pour i de 0 à n-1
+	{
+		a += da;
+		// on crée le sommet
+		Vector *pos = malloc( sizeof( Vector ) );
+		pos->x = ( (cos(a + rotation) * solid->radius) );
+		pos->y = ( (sin(a + rotation) * solid->radius) );
+		tabVector_add( &solid->verticesArray, pos );
+	}	
+	
+	sizeTabSolids++;
+	if(sizeTabSolids <= 1)
+		tabSolids = malloc( sizeTabSolids * sizeof(Solid*) );
+	else
+		tabSolids = realloc( tabSolids, sizeTabSolids * sizeof(Solid*) );
+	tabSolids[sizeTabSolids-1] = solid;
+}
+
+
+
+//--------------------------------------------------------------------------
 // Supprimer un solid
-//-------------------------------------------
+//--------------------------------------------------------------------------
 void physicEngine_removeSolid(int index)
 {
 	int i;
@@ -147,40 +277,9 @@ void physicEngine_removeSolid(int index)
 
 
 
-//	Ajouter un solid
-//----------------------------------------
-void physicEngine_add_solid( Vector position, Vector speed, Vector acceleration, int nb_of_faces, double radius, int staticSolid )
-{
-	// Augmente la taille du tableau de Solids
-	sizeTabSolids++;
-	if(sizeTabSolids <= 1)
-	{
-		tabSolids = malloc( sizeTabSolids * sizeof(Solid*) );
-	} else {
-		tabSolids = realloc( tabSolids, sizeTabSolids * sizeof(Solid*) );
-	}
-	
-	Solid *solid		= malloc( sizeof(Solid) * 1);
-	solid->position		= position;
-	solid->speed		= speed;
-	solid->acceleration = acceleration;
-	
-	solid->nb_vertices	= nb_of_faces;
-	solid->radius		= radius;
-	solid->staticSolid  = staticSolid;
-	
-	solid->color[0]		= rand()%255;
-	solid->color[1]		= rand()%255;
-	solid->color[2]		= rand()%255;
-	
-	// Ajouter le solide au tableau
-	tabSolids[sizeTabSolids-1] = solid;
-}
-
-
-
+//--------------------------------------------------------------------------
 // Libération de la mémoire
-//-----------------------------------
+//--------------------------------------------------------------------------
 void physicEngine_free()
 {
 	int i = 0;
@@ -190,6 +289,108 @@ void physicEngine_free()
 	}
 	free(tabSolids);
 }
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///	Detection de collision des enveloppes Circulaires
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
+{
+	//int		resultat = 0;
+	Vector	v				= Vector_create();
+	float	norme_center	= (float)0;
+	float	somme_radius	= (float)0;
+	
+	
+	// On calcul la distance entre les 2 centres des solides
+	v				= vector_soustraction( s1->position, s2->position);
+	norme_center	= vector_norm( v );
+	somme_radius	= s1->radius + s2->radius;
+	
+	
+	//printf("%f | %f  \n", v.x, v.y);
+	//printf("%f\n", norme_center);
+	//printf("%f\n", somme_radius);
+	
+	if (norme_center > somme_radius )
+	{
+		// pas de collision des cercles
+	}
+	else
+	{
+		//s1->staticSolid = 1;
+		//ss2->staticSolid = 1;
+	}
+
+	
+	
+	
+	/*
+	// sur x
+	if ( ((i->position.x + i->radius) > (j->position.x - j->radius)) || ((j->position.x + j->radius) > (i->position.x - i->radius)) )
+	{
+		resultat++;
+	}
+	
+	// sur y
+	if ( ((i->position.y + i->radius) > (j->position.y - j->radius)) || ((j->position.y + j->radius) > (i->position.y - i->radius)) )
+	{
+		resultat++;
+	}
+
+
+
+	if (resultat == 2)
+	{
+		i->acceleration.x = 0;
+		i->acceleration.y = 0;
+		i->speed.x = 0;
+		i->speed.y = 0;
+		resultat = 1;
+	}
+	else
+	{
+		resultat = 0;
+	}
+	return resultat;*/
+	
+	return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

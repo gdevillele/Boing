@@ -1,11 +1,12 @@
-/*
- *  main.h
- *  Boing
- *
- *  Created by Gaëtan de Villèle on 15/01/11.
- *  Copyright 2011 EPSI. All rights reserved.
- *
- */
+/////////////////////////////////////////////////////////////
+///
+///		main.h
+///		Boing
+///
+///		Created by Gaëtan de Villèle on 15/01/11.
+///		Copyright 2011 EPSI. All rights reserved.
+///
+/////////////////////////////////////////////////////////////
 
 
 #ifndef MAIN // Si la constante n'a pas été définie` le fichier n'a jamais été inclus

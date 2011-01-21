@@ -10,7 +10,7 @@
 #ifndef PHYSIC_ENGINE
 #define PHYSIC_ENGINE
 
-
+#include <math.h>
 
 #include "OpenGL/gl.h"
 #include "OpenGL/glu.h"
@@ -38,8 +38,19 @@ void physicEngine_updateSolidsState( int gap );
 void physicEngine_display();
 
 
+
+
+
+// Collision des enveloppes externes
+int physicEngine_detectExternCollision( Solid* i, Solid* j );
+
+
+
+// Créer un rectangle
+void physicEngine_create_rect( Vector position, Vector speed, Vector acceleration, float width, float height, int staticSolid );
+
 // Ajouter un solid au moteur
-void physicEngine_add_solid( Vector position, Vector speed, Vector acceleration, int nb_of_faces, double radius, int staticSolid );
+void physicEngine_create_polygon( Vector position, Vector speed, Vector acceleration, int sides, float radius, int staticSolid );
 
 // Supprimer un solid
 void physicEngine_removeSolid(int index);

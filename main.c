@@ -38,28 +38,13 @@ int main(int argc, char *argv[])
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(-512,512,-384,384);
+	glLineWidth(2.0);
 	physicEngine_setWindowSize( -512, 512, -384, 384 );
 
 	
 	//	MAIN LOOP
     while (continuer)
     {
-		/*
-		 Vector position;
-		 position.x = ( ((rand()%1024)-512) );
-		 position.y = ( 384 );
-		 position.z = 0;
-		 Vector speed;
-		 speed.x = (rand()%300)-150;
-		 speed.y = 0;
-		 speed.z = 0;
-		 Vector acceleration;
-		 acceleration.x = 0;
-		 acceleration.y = -200;
-		 acceleration.z = 0;
-		 physicEngine_add_solid( position, speed, acceleration, 7, (double) 5 );
-		 */
-		
 		//	Gestion des Events
 		//----------------------------------------
 		while(SDL_PollEvent(&event))
@@ -85,7 +70,7 @@ int main(int argc, char *argv[])
 						acceleration.x = 0;
 						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_add_solid( position, speed, acceleration, 4, (double) 50, 0 );
+						physicEngine_create_rect( position, speed, acceleration, (float) 30, (float) 30, 0 );
 					}
 					else if ( event.button.button == SDL_BUTTON_RIGHT )
 					{
@@ -94,20 +79,21 @@ int main(int argc, char *argv[])
 						position.y = -( event.button.y - 384 );
 						position.z = 0;
 						Vector speed;
-						speed.x = 0;
-						speed.y = 0;
+						speed.x = 200;
+						speed.y = 500;
 						speed.z = 0;
 						Vector acceleration;
 						acceleration.x = 0;
-						acceleration.y = 0;
+						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_add_solid( position, speed, acceleration, 4, (double) 100, 1 );
+						//physicEngine_create_polygon( position, speed, acceleration, 5, (float) 150, 1 );
+						physicEngine_create_rect( position, speed, acceleration, (float) 50, (float) 50, 0 );
 					}
 					break;
 				case SDL_MOUSEMOTION:
-					if(1)
+					if(1 == 1)
+					//if( event.motion.x > 0 && event.motion.x < 1023)
 					{
-						/*
 						Vector position;
 						position.x = ( event.motion.x - 512 );
 						position.y = -( event.motion.y - 384 );
@@ -120,7 +106,9 @@ int main(int argc, char *argv[])
 						acceleration.x = 0;
 						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_add_solid( position, speed, acceleration, 7, (double) 5, 1 );*/
+						physicEngine_create_rect( position, speed, acceleration, (float) 20, (float) 5, 0 );
+						//physicEngine_create_polygon( position, speed, acceleration, 3, (float) 10, 0 );
+
 					}
 					break;
 					
@@ -145,9 +133,11 @@ int main(int argc, char *argv[])
 		physicEngine_removeUselessSolids();
 		
 		// --- 3 --- : detection des collision
-		//physicEngine_detectCollisions();
+		physicEngine_detectCollisions();
 		
 		// --- 4 --- : calcul d'une rŽponse aux collisions
+			// sera dans la meme boucle que la detection de collisions:
+			//
 		
 		// --- 5 --- : mise ˆ jour de l'Žtat des solides
 		physicEngine_updateSolidsState( gap );
@@ -166,7 +156,7 @@ int main(int argc, char *argv[])
 		glFlush();
 		SDL_GL_SwapBuffers();
 		
-    } // fin de la boucle principale
+    } // main loop end
 	
 	
 	

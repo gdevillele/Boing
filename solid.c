@@ -12,10 +12,6 @@
 
 #include "solid.h"
 
-// Récupération de PI dans math.h
-const float PI = M_PI ;
-
-
 
 //	Affiche un Solid
 //----------------------------------------
@@ -23,19 +19,18 @@ void solid_display(Solid *solid)	// Génération des points (sommets) des solids
 {
 	// Variables
 	int		i	= 0;
-	float	a	= ( PI / solid->nb_vertices );
-	float	da	= ( ( PI*2.00 ) / solid->nb_vertices );
 	
-	// Algo
-	glBegin(GL_LINE_LOOP);
-	//glBegin(GL_POLYGON);
+	glBegin(GL_LINE_LOOP); //glBegin(GL_POLYGON);
 	glColor3ub( solid->color[0], solid->color[1], solid->color[2] );
-	for( i = 0; i < solid->nb_vertices; i ++ )
+	
+	for( i = 0; i < solid->verticesArray.size; i++ )
 	{
-		a += da;
-		glVertex2d( ( solid->position.x + (cos(a) * solid->radius) ) , ( solid->position.y + (sin(a) * solid->radius) ) );
+		glVertex2f( ( solid->position.x + solid->verticesArray.tab[i]->x) , ( solid->position.y + solid->verticesArray.tab[i]->y ) );
 	}
 	glEnd();
+	
+	
+	draw_circle(solid->position, solid->radius);
 }
 
 

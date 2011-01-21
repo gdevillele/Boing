@@ -39,9 +39,38 @@ typedef struct Vector
 //----------------------------------------------------
 //	FUNCTIONS
 //----------------------------------------------------
-
+Vector		Vector_create();
 Vector		vector_addition(Vector v1, Vector v2);
+Vector		vector_soustraction(Vector v1, Vector v2);
 float		vector_norm(Vector v);
+
+
+
+
+
+
+
+//--------------------------------------------------------------------
+//	TABVECTOR - Tableau de vecteurs (position) pour les sommets
+//--------------------------------------------------------------------
+
+typedef struct TabVector
+{
+	// Tableau dynamique de pointeurs de Vector
+	Vector*		*tab;
+	
+	// Taille du tableau
+	int			size;
+	
+} TabVector;
+
+// Creation d'un tab vecteur avec initialisation
+TabVector tabVector_create();
+
+// Ajouter un Vector à un TabVector
+void tabVector_add( TabVector* tabv, Vector* vect );
+
+
 
 
 
