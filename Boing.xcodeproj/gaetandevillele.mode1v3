@@ -229,6 +229,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -272,8 +274,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>9</integer>
-									<integer>5</integer>
+									<integer>16</integer>
 									<integer>4</integer>
 									<integer>0</integer>
 								</array>
@@ -309,14 +310,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>solid.c</string>
+								<string>main.c</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -324,11 +323,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>solid.c</string>
+										<string>main.c</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>8F053A4012E9DA3D007B2BE6</string>
+										<string>8F053A5B12E9E024007B2BE6</string>
 										<key>history</key>
 										<array>
 											<string>8F0F2D0112E1C12D0018E8AD</string>
@@ -338,12 +337,12 @@
 											<string>8FE8182A12E7582400EEB1D4</string>
 											<string>8FE818DB12E7772300EEB1D4</string>
 											<string>8FE818F112E7787800EEB1D4</string>
-											<string>8F0E72D312E81CF100B72055</string>
 											<string>8F7EF82A12E85B7D003269C0</string>
 											<string>8F053A1C12E9D8DD007B2BE6</string>
-											<string>8F053A1D12E9D8DD007B2BE6</string>
-											<string>8F053A3E12E9DA3D007B2BE6</string>
-											<string>8F053A3F12E9DA3D007B2BE6</string>
+											<string>8F053A4A12E9DB0B007B2BE6</string>
+											<string>8F053A5012E9E01B007B2BE6</string>
+											<string>8F053A5112E9E01B007B2BE6</string>
+											<string>8F053A5A12E9E024007B2BE6</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -401,9 +400,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>8F053A0912E9CDC5007B2BE6</string>
+				<string>8F053A5C12E9E024007B2BE6</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>8F053A0A12E9CDC5007B2BE6</string>
+				<string>8F053A5D12E9E024007B2BE6</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -541,11 +540,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>8F053A4112E9DA3D007B2BE6</string>
-		<string>8F053A1412E9CDC5007B2BE6</string>
-		<string>8F053A1512E9CDC5007B2BE6</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>8F275C1D12E0C4AD00CDCDBE</string>
 		<string>/Users/gaetandevillele/Dropbox/EPSI/CSII-1/PROJECTS/C/Boing/Boing.xcodeproj</string>
 	</array>
@@ -627,7 +621,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>8F275C1D12E0C4AD00CDCDBE</string>
-				<string>8F053A0B12E9CDC5007B2BE6</string>
+				<string>8F053A5E12E9E024007B2BE6</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

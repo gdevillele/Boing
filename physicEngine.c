@@ -325,8 +325,8 @@ int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 	}
 	else
 	{
-		//s1->staticSolid = 1;
-		//ss2->staticSolid = 1;
+		s1->staticSolid = 1;
+		s2->staticSolid = 1;
 	}
 
 	
