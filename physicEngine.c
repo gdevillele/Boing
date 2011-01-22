@@ -297,10 +297,92 @@ void physicEngine_free()
 
 
 
+//--------------------------------------------------------------------------
+//	DETECTION DE COLLISION DES ENVELOPPES RECTANGULAIRES
+//--------------------------------------------------------------------------
+int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
+{
+	float *tabS1 = NULL; // dimension 4
+	float *tabS2 = NULL; // dimension 4
+	
+	
+	tabS1 = solid_getExternalAura(s1);
+	tabS2 = solid_getExternalAura(s2);
+	
+
+	
+	if(   ((tabS2[3] <= tabS1[1]) && (tabS1[1] <= tabS2[1])  ||  (tabS1[3] <= tabS2[1]) && (tabS2[1] <= tabS1[1])) && ((tabS2[2] <= tabS1[0]) && (tabS1[0] <= tabS2[0])  ||  (tabS1[2] <= tabS2[0]) && (tabS2[0] <= tabS1[0]))   )
+	{
+		s1->staticSolid = 1;
+		s2->staticSolid = 1;
+	}
+	
+	// REPONSE A LA COLLISION
+	//
+	// 1) Un des deux solides est fixe -> toute l'energie est pour le 2eme
+	// 2) Les solides sont floattants  -> gestion du poids (poids identique pour commencer)
+	
+	
+	// Return 1 if collision
+	return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//--------------------------------------------------------------------------
+//	DETECTION DE COLLISION DES ENVELOPPES RECTANGULAIRES
+//--------------------------------------------------------------------------
+/*
+int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
+{
+	float *tabS1 = NULL; // dimension 4
+	float *tabS2 = NULL; // dimension 4
+	
+	
+	tabS1 = solid_getExternalAura(s1);
+	tabS2 = solid_getExternalAura(s2);
+	
+	
+	
+	if(   ((tabS2[3] <= tabS1[1]) && (tabS1[1] <= tabS2[1])  ||  (tabS1[3] <= tabS2[1]) && (tabS2[1] <= tabS1[1])) && ((tabS2[2] <= tabS1[0]) && (tabS1[0] <= tabS2[0])  ||  (tabS1[2] <= tabS2[0]) && (tabS2[0] <= tabS1[0]))   )
+	{
+		s1->staticSolid = 1;
+		s2->staticSolid = 1;
+	}
+	
+	// Return 1 if collision
+	return 1;
+}
+*/
+
+
+
+
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///	Detection de collision des enveloppes Circulaires
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 {
 	//int		resultat = 0;
@@ -325,48 +407,35 @@ int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 	}
 	else
 	{
-		s1->staticSolid = 1;
-		s2->staticSolid = 1;
+		//s1->staticSolid = 1;
+		//s2->staticSolid = 1;
 	}
-
-	
-	
-	
-	/*
-	// sur x
-	if ( ((i->position.x + i->radius) > (j->position.x - j->radius)) || ((j->position.x + j->radius) > (i->position.x - i->radius)) )
-	{
-		resultat++;
-	}
-	
-	// sur y
-	if ( ((i->position.y + i->radius) > (j->position.y - j->radius)) || ((j->position.y + j->radius) > (i->position.y - i->radius)) )
-	{
-		resultat++;
-	}
-
-
-
-	if (resultat == 2)
-	{
-		i->acceleration.x = 0;
-		i->acceleration.y = 0;
-		i->speed.x = 0;
-		i->speed.y = 0;
-		resultat = 1;
-	}
-	else
-	{
-		resultat = 0;
-	}
-	return resultat;*/
 	
 	return 1;
 }
+*/
 
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	BROUILLON : detection de collision des enveloppes rectangulaires
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+ //COLLISION
+ // X
+ if(      (tabS2[3] <= tabS1[1]) && (tabS1[1] <= tabS2[1])  ||  (tabS1[3] <= tabS2[1]) && (tabS2[1] <= tabS1[1])      )
+ {
+ s1->staticSolid = 1;
+ s2->staticSolid = 1;
+ }
+ 
+ // Y
+ if(      (tabS2[2] <= tabS1[0]) && (tabS1[0] <= tabS2[0])  ||  (tabS1[2] <= tabS2[0]) && (tabS2[0] <= tabS1[0])      )
+ {
+ s1->staticSolid = 1;
+ s2->staticSolid = 1;
+ }
+ */
 
 
 

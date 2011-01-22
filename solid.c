@@ -69,8 +69,68 @@ void solid_updateSpeed( Solid *solid, int gap )
 
 
 
+//-------------------------------------------------------------
+//	Calcul de l'enveloppe rectangulaire d'un solid
+//-------------------------------------------------------------
+float* solid_getExternalAura( Solid *solid )
+{
+	float max_y = 0;
+	float max_x = 0;
+	float min_y = 0;
+	float min_x = 0;
+	
+	int i = 0;
+	float *result = malloc( sizeof(float) * 4 );
+	
+	
+	max_y = ( solid->position.y ) + ( solid->verticesArray.tab[0]->y );
+	max_x = ( solid->position.x ) + ( solid->verticesArray.tab[0]->x );
+	min_y = ( solid->position.y ) + ( solid->verticesArray.tab[0]->y );
+	min_x = ( solid->position.x ) + ( solid->verticesArray.tab[0]->x );
+	
+	
+	for ( i=1 ; i < solid->verticesArray.size ; i++)
+	{
+		if ( ((solid->position.y)+(solid->verticesArray.tab[i]->y)) > max_y)
+		{
+			max_y = ((solid->position.y)+(solid->verticesArray.tab[i]->y));
+		}
+		
+		
+		if ( ((solid->position.x)+(solid->verticesArray.tab[i]->x)) > max_x)
+		{
+			max_x = ((solid->position.x)+(solid->verticesArray.tab[i]->x));
+		}
+		
+		
+		if ( ((solid->position.y)+(solid->verticesArray.tab[i]->y)) < min_y)
+		{
+			min_y = ((solid->position.y)+(solid->verticesArray.tab[i]->y));
+		}
+		
+		
+		if ( ((solid->position.x)+(solid->verticesArray.tab[i]->x)) < min_x)
+		{
+			min_x = ((solid->position.x)+(solid->verticesArray.tab[i]->x));
+		}
+	}
+	
+	/*
+	printf("%f\n", max_y );
+	printf("%f\n", max_x );
+	printf("%f\n", min_y );
+	printf("%f\n", min_x );
+	printf("----------------\n");
+	*/
+	 
+	 
+	result[0] = max_y;
+	result[1] = max_x;
+	result[2] = min_y;
+	result[3] = min_x;
 
-
+	return result;
+}
 
 
 

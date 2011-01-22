@@ -16,9 +16,8 @@ int main(int argc, char *argv[])
 	//-----------------------------------------
 	SDL_Event	event;
 	int			continuer		= 1;
-	
 	int			gap				= 0;
-	//int			fps				= 60;
+	//int		fps				= 60;
 	Uint32		actualTime		= 0;
 	
 	
@@ -52,7 +51,22 @@ int main(int argc, char *argv[])
 	acceleration.z = 0;
 	physicEngine_create_rect( position, speed, acceleration, (float) 1000, (float) 40, 1 );
 	
-	
+	/*
+	position.x = ( 0 );
+	position.y = ( 0);
+	position.z = 0;
+	speed.x = 0;
+	speed.y = 0;
+	speed.z = 0;
+	acceleration.x = 0;
+	acceleration.y = 0;
+	acceleration.z = 0;
+	physicEngine_create_rect( position, speed, acceleration, (float) 100, (float) 100, 1 );
+	position.x = ( 200 );
+	position.y = ( 200);
+	position.z = 0;
+	physicEngine_create_rect( position, speed, acceleration, (float) 100, (float) 100, 1 );
+	*/
 	//	MAIN LOOP
     while (continuer)
     {
@@ -75,13 +89,13 @@ int main(int argc, char *argv[])
 						position.z = 0;
 						Vector speed;
 						speed.x = 0;
-						speed.y = 0;
+						speed.y = 400;
 						speed.z = 0;
 						Vector acceleration;
 						acceleration.x = 0;
 						acceleration.y = -500;
 						acceleration.z = 0;
-						physicEngine_create_rect( position, speed, acceleration, (float) 30, (float) 30, 0 );
+						physicEngine_create_rect( position, speed, acceleration, (float) 30, (float) 10, 0 );
 					}
 					else if ( event.button.button == SDL_BUTTON_RIGHT )
 					{
@@ -90,15 +104,15 @@ int main(int argc, char *argv[])
 						position.y = -( event.button.y - 300 );
 						position.z = 0;
 						Vector speed;
-						speed.x = 200;
-						speed.y = 500;
+						speed.x = 0;
+						speed.y = 0;
 						speed.z = 0;
 						Vector acceleration;
 						acceleration.x = 0;
 						acceleration.y = -500;
 						acceleration.z = 0;
 						//physicEngine_create_polygon( position, speed, acceleration, 5, (float) 150, 1 );
-						physicEngine_create_rect( position, speed, acceleration, (float) 50, (float) 50, 0 );
+						physicEngine_create_rect( position, speed, acceleration, (float) 10, (float) 30, 0 );
 					}
 					break;
 				case SDL_MOUSEMOTION:

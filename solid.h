@@ -75,6 +75,7 @@ void	solid_display( Solid *solid );
 void	solid_updatePosition( Solid *solid, int gap );
 void	solid_updateSpeed( Solid *solid, int gap );
 void	solid_updateNextPosition( Solid *solid, int gap );
+float*	solid_getExternalAura( Solid *solid );
 
 
 
