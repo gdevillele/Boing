@@ -106,8 +106,9 @@ void physicEngine_detectCollisions()
 	{
 		for ( j=(i+1) ; j < sizeTabSolids ; j++)	// ne pas comparer a -> b ET b->a (optimisation)
 		{
-				k = 0;
-				k = physicEngine_detectExternCollision( tabSolids[i], tabSolids[j] );
+				//k = 0;
+				//k = 
+				physicEngine_detectExternCollision( tabSolids[i], tabSolids[j] );
 		}
 	}
 }
@@ -302,8 +303,9 @@ void physicEngine_free()
 //--------------------------------------------------------------------------
 int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 {
-	float *tabS1 = NULL; // dimension 4
-	float *tabS2 = NULL; // dimension 4
+	float	*tabS1		= NULL; // dimension 4
+	float	*tabS2		= NULL; // dimension 4
+	int		collision	= 0;
 	
 	
 	tabS1 = solid_getExternalAura(s1);
@@ -313,8 +315,33 @@ int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 	
 	if(   ((tabS2[3] <= tabS1[1]) && (tabS1[1] <= tabS2[1])  ||  (tabS1[3] <= tabS2[1]) && (tabS2[1] <= tabS1[1])) && ((tabS2[2] <= tabS1[0]) && (tabS1[0] <= tabS2[0])  ||  (tabS1[2] <= tabS2[0]) && (tabS2[0] <= tabS1[0]))   )
 	{
-		s1->staticSolid = 1;
-		s2->staticSolid = 1;
+		//s1->staticSolid = 1;
+		//s2->staticSolid = 1;
+		collision = 1;
+		
+		
+		
+		
+		
+		if( s1->staticSolid == 1 )
+		{
+			s2->speed.y *= (-1);
+		}
+		else if( s2->staticSolid == 1 )
+		{
+			s1->speed.y *= (-1);
+		}
+		else
+		{
+			s1->staticSolid = 1;
+			s2->staticSolid = 1;
+		}
+		
+		
+		
+		
+		
+		
 	}
 	
 	// REPONSE A LA COLLISION
@@ -323,8 +350,14 @@ int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 	// 2) Les solides sont floattants  -> gestion du poids (poids identique pour commencer)
 	
 	
+
+	
+	
+	
+	
+	
 	// Return 1 if collision
-	return 1;
+	return collision;
 }
 
 
