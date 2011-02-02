@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
 							break;
 						case SDLK_1:
 							// faire des carrés
-							Vector position;
+							/*Vector position;
 							position.x = ( event.button.x - 500 );
 							position.y = -( event.button.y - 300 );
 							position.z = 0;
@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
 							acceleration.x = 0;
 							acceleration.y = -500;
 							acceleration.z = 0;
-							physicEngine_create_rect( position, speed, acceleration, (float) 30, (float) 10, 0 );
+							physicEngine_create_rect( position, speed, acceleration, (float) 30, (float) 10, 0 );*/
 							break;
 						case SDLK_2:
 							// faire des rectangles
