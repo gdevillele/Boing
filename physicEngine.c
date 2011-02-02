@@ -315,6 +315,35 @@ int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 	
 	if(   ((tabS2[3] <= tabS1[1]) && (tabS1[1] <= tabS2[1])  ||  (tabS1[3] <= tabS2[1]) && (tabS2[1] <= tabS1[1])) && ((tabS2[2] <= tabS1[0]) && (tabS1[0] <= tabS2[0])  ||  (tabS1[2] <= tabS2[0]) && (tabS2[0] <= tabS1[0]))   )
 	{
+		
+		// Yann's Code !
+		
+		//collisions des solides rectangles sur l'axe des Y --> it's work !
+		
+		if ((tabS2[2] <= tabS1[0]) && (tabS1[0] <= tabS2[0])  ||  (tabS1[2] <= tabS2[0]) && (tabS2[0] <= tabS1[0]))
+		{
+			if (s1->staticSolid != 1) {
+				s1->speed.y *= (-1);
+			}
+			if (s2->staticSolid != 1) {
+				s2->speed.y *= (-1);
+			}
+		}
+		
+		// collisions des solides rectangles sur l'axe des X --> it's work !
+		
+		if ((tabS2[3] <= tabS1[1]) && (tabS1[1] <= tabS2[1])  ||  (tabS1[3] <= tabS2[1]) && (tabS2[1] <= tabS1[1]))
+		{
+			if (s1->staticSolid != 1) {
+				s1->speed.x *= (-1);
+			}
+			if (s2->staticSolid != 1) {
+				s2->speed.x *= (-1);
+			}
+		}
+		
+		
+		
 		//s1->staticSolid = 1;
 		//s2->staticSolid = 1;
 		collision = 1;
@@ -322,7 +351,7 @@ int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 		
 		
 		
-		
+		/*
 		if( s1->staticSolid == 1 )
 		{
 			s2->speed.y *= (-1);
@@ -336,7 +365,7 @@ int physicEngine_detectExternCollision( Solid* s1, Solid* s2 )
 			s1->staticSolid = 1;
 			s2->staticSolid = 1;
 		}
-		
+		*/
 		
 		
 		
