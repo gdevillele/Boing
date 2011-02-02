@@ -108,8 +108,8 @@ int main(int argc, char *argv[])
 						speed.y = 0;
 						speed.z = 0;
 						Vector acceleration;
-						acceleration.x = 0;
-						acceleration.y = -500;
+						acceleration.x = -500;
+						acceleration.y = 0;
 						acceleration.z = 0;
 						//physicEngine_create_polygon( position, speed, acceleration, 5, (float) 150, 1 );
 						physicEngine_create_rect( position, speed, acceleration, (float) 10, (float) 30, 0 );
@@ -134,6 +134,69 @@ int main(int argc, char *argv[])
 						//physicEngine_create_rect( position, speed, acceleration, (float) 20, (float) 5, 0 );
 						//physicEngine_create_polygon( position, speed, acceleration, 3, (float) 10, 0 );
 						
+					}
+					break;
+				
+				case SDL_KEYDOWN:
+					switch (event.key.keysym.sym) {
+						case SDLK_ESCAPE:
+							continuer = 0;
+							break;
+						case SDLK_k:
+							//Faire en sorte que si on appuye sur K tous les objets soient effacés.
+							continuer = 0;
+							break;
+						case SDLK_1:
+							// faire des carrés
+							Vector position;
+							position.x = ( event.button.x - 500 );
+							position.y = -( event.button.y - 300 );
+							position.z = 0;
+							Vector speed;
+							speed.x = 0;
+							speed.y = 400;
+							speed.z = 0;
+							Vector acceleration;
+							acceleration.x = 0;
+							acceleration.y = -500;
+							acceleration.z = 0;
+							physicEngine_create_rect( position, speed, acceleration, (float) 30, (float) 10, 0 );
+							break;
+						case SDLK_2:
+							// faire des rectangles
+							break;
+						case SDLK_3:
+							// faire des ronds
+							break;
+						case SDLK_4:
+							// faire des ovales
+							break;
+						case SDLK_5:
+							// faire des triangles isocèles
+							break;
+						case SDLK_6:
+							// faire des triangles equilatéraux
+							break;
+						case SDLK_7:
+							// faire des triangles rectangles
+							break;
+						case SDLK_8:
+							// faire des triangles quelconques
+							break;
+						case SDLK_9:
+							// faire des losanges
+							break;
+						case SDLK_0:
+							// faire des parallélogrames
+							break;
+						case SDLK_a:
+							// faire des pentagones
+							break;
+						case SDLK_b:
+							// faire des octogones
+							break;
+						//...
+							
 					}
 					break;
 					
