@@ -88,11 +88,11 @@ int main(int argc, char *argv[])
 						position.y = -( event.button.y - 300 );
 						position.z = 0;
 						Vector speed;
-						speed.x = 0;
-						speed.y = 400;
+						speed.x = 500;
+						speed.y = 500;
 						speed.z = 0;
 						Vector acceleration;
-						acceleration.x = 0;
+						acceleration.x = -100;
 						acceleration.y = -500;
 						acceleration.z = 0;
 						physicEngine_create_rect( position, speed, acceleration, (float) 30, (float) 10, 0 );
